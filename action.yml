@@ -1,0 +1,29 @@
+name: 'Jelastic Redeploy'
+description: 'Redeploy containers to a given version in a Jelastic environment'
+inputs:
+  version:
+    description: 'Version of the docker image to deploy'
+    required: true
+  jelastic_env:
+    description: 'Name of the Jelastic environment to redeploy'
+    required: true
+  jelastic_token:
+    description: 'Token to authenticate with Jelastic'
+    required: true
+  jelastic_url:
+    description: 'URL of the Jelastic instance'
+    required: true
+  deploy_delay:
+    description: 'Delay between sequential deploy of containers'
+    required: false
+    default: 110
+  request_timeout:
+    description: 'Timeout for the request to Jelastic'
+    require: false
+    default: 300000
+outputs:
+  response:
+    description: 'Response of the Jelastic request'
+runs:
+  using: 'node16'
+  main: 'main.js'
