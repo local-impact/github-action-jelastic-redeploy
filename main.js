@@ -24,6 +24,13 @@ async function main() {
   const url = new URL(`https://${jelasticUrl}/1.0/${actionPath}?${params}`);
   const client = new httpm.HttpClient('', [], { socketTimeout: requestTimeout });
   const response = await client.post(url);
+
+  console.log(response);
+
+  if (response.message.statusCode !== 200) {
+    throw new Error(`Jelastic did not returned a successful response: ${response}`);
+  }
+
   const data = await response.readBody();
   const jsonData = JSON.parse(data);
 
