@@ -22,21 +22,20 @@ async function main() {
     delay: deployDelay,
   });
   const url = new URL(`https://${jelasticUrl}/1.0/${actionPath}?${params}`);
-  const client = axios.create({ timeout: requestTimeout });
-  const response = await client.post(url);
+  const client = axios.create({ timeout: requestTimeout, responseType: 'json' });
+  const response = await client.post(url, null);
 
   console.log(response);
 
-  if (response.message.statusCode !== 200) {
+  if (response.status !== 200) {
     throw new Error(`Jelastic did not returned a successful response: ${response}`);
   }
 
-  const data = await response.readBody();
-  const jsonData = JSON.parse(data);
+  const data = await response.data;
 
   core.setOutput('response', data);
 
-  if (jsonData?.result !== 0) {
+  if (data?.result !== 0) {
     throw new Error(`Could not deploy: ${data}`);
   }
 }
