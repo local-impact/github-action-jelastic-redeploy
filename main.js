@@ -1,5 +1,5 @@
 const core = require('@actions/core');
-const httpm = require('@actions/http-client');
+const axios = require('axios');
 
 async function main() {
   const jelasticUrl = core.getInput('jelastic_url');
@@ -22,7 +22,7 @@ async function main() {
     delay: deployDelay,
   });
   const url = new URL(`https://${jelasticUrl}/1.0/${actionPath}?${params}`);
-  const client = new httpm.HttpClient('', [], { socketTimeout: requestTimeout });
+  const client = axios.create({ timeout: requestTimeout });
   const response = await client.post(url);
 
   console.log(response);
