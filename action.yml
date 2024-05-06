@@ -25,5 +25,5 @@ outputs:
   response:
     description: 'Response of the Jelastic request'
 runs:
-  using: 'node16'
+  using: 'node20'
   main: 'main.js'
