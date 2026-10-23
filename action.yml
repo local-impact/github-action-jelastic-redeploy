@@ -21,6 +21,20 @@ inputs:
     description: 'Timeout for the request to Jelastic'
     require: false
     default: 300000
+  health_check_path:
+    description: >-
+      Path requested on the URL of each redeployed container (e.g. /health/) until it answers with a 2xx status,
+      before redeploying the next one. Replaces deploy_delay when set.
+    required: false
+    default: ''
+  health_check_timeout:
+    description: 'Time in seconds a redeployed container has to pass the health check'
+    required: false
+    default: 600
+  health_check_interval:
+    description: 'Time in seconds between two health check attempts'
+    required: false
+    default: 10
 outputs:
   response:
     description: 'Response of the Jelastic request'
